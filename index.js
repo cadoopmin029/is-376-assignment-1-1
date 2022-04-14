@@ -47,7 +47,7 @@ app.get('/', (req, res) => {
 	console.log(err, team_members_results)
 
 	res.render('index', {
-			      teamNumber: 2,
+			      teamNumber: 4,
 			      databaseVersion: version_results.rows[0].version,
 			      teamMembers: team_members_results.rows
 			    })
