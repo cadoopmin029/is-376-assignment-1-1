@@ -20,8 +20,8 @@
   "homepage": "https://github.com/cadoopmin029/is-376-assignment-1-1#readme",
   "dependencies": {
     "express": "^4.17.3",
-    "jade": "^1.11.0",
-    "pg": "^8.7.3"
+    "pg": "^8.7.3",
+    "pug": "^3.0.2"
   },
   "devDependencies": {
     "nodemon": "^2.0.15"
