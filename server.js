@@ -1,7 +1,8 @@
 const express = require('express')
 const app = express()
 const bodyParser = require('body-parser');
-const port = process.env.PORT || 3000
+//const port = process.env.PORT || 3000
+const { body, validationResult } = require('express-validator');
 
 // Set the view engine for the express app
 app.set("view engine", "pug")
@@ -57,14 +58,29 @@ app.get('/', (req, res) => {
   })
 })
 
-app.post('/', (req, res) => {
+app.post('/', 
+	body('first_name')
+		.isAlpha()
+		.isLength({ min: 1 })
+		.withMessage('must be valid'),
+	body('last_name')
+		.isAlpha()
+		.isLength({ min: 1 })
+		.withMessage('must be valid'),
+	(req, res) => {
 
-	pool.query(`INSERT INTO team_members (first_name, last_name) VALUES ('${req.body.first_name}', '${req.body.last_name}')`, (err, result) => {
+		const errors = validationResult(req);
+		if (!errors.isEmpty()) {
+			return res.status(400).send({ errors: errors.array() });
+		}
 
-		console.log(err, result)
+		pool.query(`INSERT INTO team_members (first_name, last_name) VALUES ('${req.body.first_name}', '${req.body.last_name}')`, (err, result) => {
+
+			console.log(err, result)
 
 		res.redirect('/')
+		})
+
 	})
-})
 
 module.exports = app;
