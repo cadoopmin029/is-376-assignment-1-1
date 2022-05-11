@@ -18,6 +18,8 @@ app.use(bodyParser.urlencoded({ extended: true }));
 const Pool = require('pg').Pool
 
 var connectionParams = null;
+
+/* istanbul ignore if */
 if (process.env.DATABASE_URL != null) {
 	connectionParams = {
 		connectionString: process.env.DATABASE_URL,
